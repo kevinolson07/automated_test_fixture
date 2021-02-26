@@ -25,7 +25,7 @@ DAC_value_3 = [0xFF, 0x00]
 while 1:
     x = 1
     while x:
-        command_byte = int(input("Select which DAC you would like to edit: "))
+        command_byte = int(input("Select which DAC you would like to edit (type 1-8 for A-H channels or 9 for all channels): "))
         if command_byte == 1:
             DAC_select = DAC_A
             x = 0
@@ -57,7 +57,7 @@ while 1:
             print("Invalid input")
     y = 1 
     while y:
-        data_byte = int(input("Select a DAC value: "))
+        data_byte = int(input("Select a DAC value (1, 2 or 3 for 0V, 2.5V, or 5V respectively): "))
         if data_byte == 1:
             DAC_value = DAC_value_1
             y = 0

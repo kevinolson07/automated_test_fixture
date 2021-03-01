@@ -1,4 +1,5 @@
 import smbus
+import time
 
 bus = smbus.SMBus(1)
 Device_address = 0x57
@@ -21,8 +22,22 @@ All_DAC = 0x2F
 DAC_value_1 = [0x00, 0x00]
 DAC_value_2 = [0x80, 0x00]
 DAC_value_3 = [0xFF, 0x00]
+DAC_values = [[0x00, 0x00],[0x80, 0x00], [0xFF, 0x00] ]
 
-while 1:
+# auto mode
+def auto_mode():
+    dwell = int(input("Enter dwell time in seconds: "))
+    cycles = int(input("Enter number of cycles: "))
+    for a in range(cycles):
+        for b in range(3):
+            bus.write_i2c_block_data(Device_address,All_DAC , DAC_values[b])
+            print(DAC_values[b])
+            time.sleep(dwell)
+    bus.write_i2c_block_data(Device_address,All_DAC , DAC_values[0])    
+
+
+# Manual Mode
+def manual_mode():
     x = 1
     while x:
         command_byte = int(input("Select which DAC you would like to edit (type 1-8 for A-H channels or 9 for all channels): "))
@@ -71,3 +86,14 @@ while 1:
             print("Invalid value")
         
     bus.write_i2c_block_data(Device_address,DAC_select , DAC_value)
+
+
+
+
+
+while 1:
+    mode_select = int(input("Select 1 for auto or 2 for manual: "))
+    if mode_select == 1:
+        auto_mode()
+    elif mode_select == 2:
+        manual_mode()

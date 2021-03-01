@@ -19,10 +19,10 @@ DAC_H = 0x27
 All_DAC = 0x2F
 
 # DAC values
-DAC_value_1 = [0x00, 0x00]
-DAC_value_2 = [0x80, 0x00]
-DAC_value_3 = [0xFF, 0x00]
-DAC_values = [[0x00, 0x00],[0x80, 0x00], [0xFF, 0x00] ]
+DAC_value_1 = [0x29, 0x00]
+DAC_value_2 = [0x99, 0x00]
+DAC_value_3 = [0xCD, 0x00]
+DAC_values = [DAC_value_1, DAC_value_2, DAC_value_3 ]
 
 # auto mode
 def auto_mode():
@@ -72,7 +72,7 @@ def manual_mode():
             print("Invalid input")
     y = 1 
     while y:
-        data_byte = int(input("Select a DAC value (1, 2 or 3 for 0V, 2.5V, or 5V respectively): "))
+        data_byte = int(input("Select a DAC value (1, 2 or 3 for 4mA, 15mA, or 20mA respectively): "))
         if data_byte == 1:
             DAC_value = DAC_value_1
             y = 0

@@ -1,7 +1,12 @@
 import smbus
 import time
+import RPi.GPIO as GPIO
 # Mode 1 setup
+pins = (11,12,13,15)
 bus = smbus.SMBus(1)
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup((11,12,13,15),GPIO.OUT)
+GPIO.output((11,12,13,15),GPIO.LOW)
 
 
 
@@ -89,6 +94,11 @@ while 1:
             data = [0x07]
             bus.write_i2c_block_data(Device_address,register,data)
             time.sleep(1)
+
+            if freq >= lift_off and freq <=touch_down:
+                GPIO.output(pins,GPIO.HIGH)
+            else:
+                GPIO.output(pins,GPIO.LOW)
         # Mode 1 setup
         Device_address = 0x70   
         register = 0x00
